@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>proof of concept</title>
-    <script src="js/non.js"></script>
+    <title>poc</title>
   </head>
   <body>
     <div id="main">
     </div>
-    <script>
+    <script type="module">
+      import GitHub from "./dist/bundle.js";
+
       var gh = new GitHub("stephenhu", "blog-www");
       gh.articles();
+      console.log("fuck");
     </script>
   </body>
 </html>

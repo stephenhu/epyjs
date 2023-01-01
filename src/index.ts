@@ -1,5 +1,7 @@
 /* non.js */
 
+//import { builtinModules } from "module";
+
 const GITHUB_API              = "https://api.github.com/repos";
 const GITHUB_API_REPOS        = "/repos";
 const GITHUB_API_CONTENTS     = "/contents";
@@ -8,7 +10,7 @@ const EXT_MD                  = ".md";
 const EXT_MKD                 = ".mkd";
 
 
-module.exports.GitHub = function (user, repo) {
+module.exports.GitHub = function (user: string, repo: string) {
 
   this.user = user;
   this.repo = repo;
@@ -31,7 +33,7 @@ module.exports.GitHub = function (user, repo) {
 
       var main = document.getElementById("main");
 
-      data.forEach(function(item) {
+      data.forEach(function(item: any) {
         
         if(item.name.includes(EXT_MD) || item.name.includes(EXT_MKD)) {
           console.log(item.name);
@@ -51,4 +53,4 @@ module.exports.GitHub = function (user, repo) {
 
   } // articles
 
-}; // GitHub
+} // GitHub

@@ -1,35 +1,28 @@
-/* epy.js */
+/* non.js */
 
-const EXT_MARKDOWN        = ".md"
+const GITHUB_API              = "https://api.github.com/repos";
+const GITHUB_API_REPOS        = "/repos";
+const GITHUB_API_CONTENTS     = "/contents";
 
-const ADAPTER_GITHUB      = 1
-const ADAPTER_S3          = 2
-
-
-class Non {
-
-  constructor(adapter) {
-    this.adapter = adapter;
-  } // constructor
-  
-} // Non
-
-/* github, s3 */
-function register_adapter() {
-
-} // register_adapter
+const EXT_MD                  = ".md";
+const EXT_MKD                 = ".mkd";
 
 
-function render_articles() {
+module.exports.GitHub = function (user, repo) {
 
-} // render_articles
+  this.user = user;
+  this.repo = repo;
+
+  this.render = function() {
+
+  } // render
 
 
-function read_index() {
+  this.articles = function() {
 
-  console.log("reading index");
+    console.log(`$(GITHUB_API)$(GITHUB_API_REPOS)/$(this.user)/$(this.repo)$(GITHUB_API_CONTENTS)`);
 
-  fetch("https://api.github.com/repos/stephenhu/blog-www/contents")
+    fetch(`$(GITHUB_API)$(GITHUB_API_REPOS)/$(this.user)/$(this.repo)$(GITHUB_API_CONTENTS)`)
     .then((res) => res.json())
     .then((data) => {
 
@@ -40,7 +33,7 @@ function read_index() {
 
       data.forEach(function(item) {
         
-        if(item.name.includes(".md")) {
+        if(item.name.includes(EXT_MD) || item.name.includes(EXT_MKD)) {
           console.log(item.name);
 
           var p = document.createElement("p");
@@ -56,4 +49,6 @@ function read_index() {
     })
     .catch((error) => console.log(error));
 
-} // read_index
+  } // articles
+
+}; // GitHub

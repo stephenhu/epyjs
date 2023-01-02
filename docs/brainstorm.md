@@ -16,4 +16,5 @@
 ## todo
 
 + since things are not cached, the performance will be bad, it will be a new page load everytime.  cdn's basically will be bypassed, though i guess the contents will be stored to cdn, so it may not be that bad, the page rendering should be quick.
-+ call it nonjs
++ ~~call it nonjs~~
++ exclude certain markdown files like README.md, customizable, user can pass, or should it be fixed?

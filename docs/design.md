@@ -6,3 +6,9 @@
 + page designers have full control of modifying the look and feel
 + all page data stored in memory on the client side
 + a separate library can be used to manipulate this content
++ there will be limitations with this approach since this uses github api's which are rate limited
+
+## interface
+
++ github repo, gets all markdown files, stores contents to an array.
++  

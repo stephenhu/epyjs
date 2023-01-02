@@ -10,10 +10,13 @@
     <script>
 
       const Github = window.default;
-      const gh = new Github("stephenhu", "blog-www");
+      const gh = new Github("stephenhu", "blog-www", ["README.md"]);
       
-      //console.log(gh.getArticles());
-      console.log(gh.articles);
+      gh.getArticles();
+      
+      setTimeout(function() {
+        console.log(gh.articles);
+      }, 3000);
 
     </script>
   </body>

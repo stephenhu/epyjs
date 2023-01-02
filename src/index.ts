@@ -11,41 +11,65 @@ export const EXT_MKD                 = ".mkd";
 
 export default class Github {
 
-  private user: string;
-  private repo: string;
+  private user:         string;
+  private repo:         string;
+  private articles:     string[];
 
   constructor(user: string, repo: string) {
 
     this.user = user;
     this.repo = repo;
+
+    this.articles = [];
   
   } // constructor
 
 
-  render() {
+  apiList(): string {
+    return GITHUB_API + GITHUB_API_REPOS + "/" + this.user + "/" + this.repo + GITHUB_API_CONTENTS; 
+  } // apiList
+
+
+  apiContent(a: string): string {
+    return GITHUB_API + GITHUB_API_REPOS + "/" + this.user + "/" + this.repo + GITHUB_API_CONTENTS + a;
+  } // apiContent
+
+
+  render(a: any) {
+
+    fetch(this.apiContent(a))
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(atob(data.content));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
   } // render
 
 
-  articles() {
+  getArticles() {
 
-    fetch(GITHUB_API + GITHUB_API_REPOS + "/" + this.user + "/" + this.repo + GITHUB_API_CONTENTS)
+    fetch(this.apiList())
     .then((res) => res.json())
     .then((data) => {
 
-      console.log(data);
-      console.log(data.length);
+      this.articles = data;
 
       var main = document.getElementById("main");
 
-      data.forEach(function(item: any) {
+      for(let i = 0; i < this.articles.length; i++) {
         
-        if(item.name.includes(EXT_MD) || item.name.includes(EXT_MKD)) {
-          console.log(item.name);
+        if(data[i].name.includes(EXT_MD) || data[i].name.includes(EXT_MKD)) {
+
+          console.log(data[i].name);
 
           var p = document.createElement("p");
 
-          p.innerText = item.name;
+          p.innerText = data[i].name;
+
+          this.render(data[i].name);
 
           if(main !== null) {
             main.appendChild(p);
@@ -53,11 +77,11 @@ export default class Github {
 
         }
 
-      });
+      }
 
     })
-    .catch((error) => console.log(error));
+    .catch((err) => console.log(err));
 
-  } // articles
+  } // getArticles
 
 } // Github

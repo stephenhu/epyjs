@@ -5,10 +5,11 @@
   "directories": {
     "doc": "docs"
   },
-  "main": "src/index.ts",
+  "main": "dist/bundle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --mode development"
   },
   "repository": {
     "type": "git",
@@ -21,10 +22,10 @@
   "author": "Stephen Hu",
   "license": "MIT",
   "devDependencies": {
-    "expressjs": "^1.0.1",
     "ts-loader": "^9.4.2",
     "typescript": "^4.9.4",
     "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1"
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
   }
 }

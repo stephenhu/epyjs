@@ -1,30 +1,35 @@
 /* non.js */
 
-//import { builtinModules } from "module";
 
-const GITHUB_API              = "https://api.github.com/repos";
-const GITHUB_API_REPOS        = "/repos";
-const GITHUB_API_CONTENTS     = "/contents";
+export const GITHUB_API              = "https://api.github.com";
+export const GITHUB_API_REPOS        = "/repos";
+export const GITHUB_API_CONTENTS     = "/contents";
 
-const EXT_MD                  = ".md";
-const EXT_MKD                 = ".mkd";
+export const EXT_MD                  = ".md";
+export const EXT_MKD                 = ".mkd";
 
 
-module.exports.GitHub = function (user: string, repo: string) {
+export default class Github {
 
-  this.user = user;
-  this.repo = repo;
+  private user: string;
+  private repo: string;
 
-  this.render = function() {
+  constructor(user: string, repo: string) {
+
+    this.user = user;
+    this.repo = repo;
+  
+  } // constructor
+
+
+  render() {
 
   } // render
 
 
-  this.articles = function() {
+  articles() {
 
-    console.log(`$(GITHUB_API)$(GITHUB_API_REPOS)/$(this.user)/$(this.repo)$(GITHUB_API_CONTENTS)`);
-
-    fetch(`$(GITHUB_API)$(GITHUB_API_REPOS)/$(this.user)/$(this.repo)$(GITHUB_API_CONTENTS)`)
+    fetch(GITHUB_API + GITHUB_API_REPOS + "/" + this.user + "/" + this.repo + GITHUB_API_CONTENTS)
     .then((res) => res.json())
     .then((data) => {
 
@@ -42,7 +47,9 @@ module.exports.GitHub = function (user: string, repo: string) {
 
           p.innerText = item.name;
 
-          main.appendChild(p);
+          if(main !== null) {
+            main.appendChild(p);
+          }
 
         }
 
@@ -53,4 +60,4 @@ module.exports.GitHub = function (user: string, repo: string) {
 
   } // articles
 
-} // GitHub
+} // Github

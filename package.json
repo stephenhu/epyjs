@@ -1,7 +1,7 @@
 {
-  "name": "nonjs",
-  "version": "1.0.0",
-  "description": "modern framework for blogging",
+  "name": "mkdown",
+  "version": "1.0.1",
+  "description": "markdown download library",
   "directories": {
     "doc": "docs"
   },
@@ -13,11 +13,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/stephenhu/nonjs.git"
+    "url": "https://github.com/stephenhu/mkdown.git"
   },
   "keywords": [
-    "blog",
-    "framework"
+    "markdown",
+    "framework",
+    "download",
+    "blog"
   ],
   "author": "Stephen Hu",
   "license": "MIT",

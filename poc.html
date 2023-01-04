@@ -11,12 +11,31 @@
 
       const Github = window.default;
       const gh = new Github("stephenhu", "blog-www", ["README.md"]);
+
+      function f(k) {
+
+        let m = gh.articles;
+
+        var main = document.getElementById("main");
+
+        var div = document.createElement("div");
+
+        let d = m.get(k);
+
+        div.innerText = d.content;
+
+        main.appendChild(div);
+
+      } // f
+
+      gh.getArticles(f);
+
       
-      gh.getArticles();
-      
+      /*
       setTimeout(function() {
         console.log(gh.articles);
       }, 3000);
+      */
 
     </script>
   </body>

@@ -17,13 +17,15 @@ export class Article {
   private _content:      string;
   private _synopsis:     string;
   private _creation:     number;
+  private _bytes:        number;
 
-  constructor(title: string) {
+  constructor(title: string, content: string, size: number) {
 
     this._title    = title;
-    this._content  = "";
+    this._content  = content;
     this._synopsis = "";
     this._creation = Date.now(); // TODO: placeholder
+    this._bytes    = size;
 
   } // constructor
 
@@ -50,7 +52,12 @@ export class Article {
 
   get creation(): number {
     return this._creation;
-  }
+  } // creation
+
+  get bytes(): number {
+    return this._bytes;
+  } // bytes
+
 
 } // Article
 
@@ -71,8 +78,6 @@ export default class Github {
     this._exclusions  = new Set();
 
     this.addExclusions(_exclude);
-
-    console.log(this._exclusions);
   
   } // constructor
 
@@ -98,33 +103,21 @@ export default class Github {
 
   apiContent(a: string): string {
     return GITHUB_API + GITHUB_API_REPOS + "/" + this._user + "/" +
-      this._repo + GITHUB_API_CONTENTS + a;
+      this._repo + GITHUB_API_CONTENTS + "/" + a;
   } // apiContent
 
 
-  getContent(a: any) {
+  getContent(a: any): Promise<any> {
 
-    fetch(this.apiContent(a))
-      .then((res) => res.json())
-      .then((data) => {
+    let json = fetch(this.apiContent(a))
+      .then((res) => res.json());
 
-        var content = atob(data.content);
-
-        var article = this._articles.get(a);
-
-        if(article !== null && article != undefined) {
-          article.content = content;
-        }
-
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    return json;
 
   } // getContent
 
 
-  getArticles() {
+  getArticles(cb: Function) {
 
     fetch(this.apiList())
     .then((res) => res.json())
@@ -137,11 +130,18 @@ export default class Github {
         if((t.includes(EXT_MD) || t.includes(EXT_MKD)) &&
           !this._exclusions.has(t)) {
 
-          var a = new Article(data[i].name);
+          let p = this.getContent(data[i].name);
 
-          this._articles.set(data[i].name, a);
+          p.then((j) => {
 
-          this.getContent(data[i].name);
+            const a = new Article(j.name, atob(j.content), j.size);
+
+            this._articles.set(j.name, a);
+
+            cb(j.name);
+
+          })
+          .catch((err) => console.log(err));
 
         }
 

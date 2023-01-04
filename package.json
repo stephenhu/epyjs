@@ -1,10 +1,13 @@
 {
   "name": "mkdown",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "markdown download library",
   "directories": {
     "doc": "docs"
   },
+  "files": [
+    "dist/bundle.js"
+  ],
   "main": "dist/bundle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

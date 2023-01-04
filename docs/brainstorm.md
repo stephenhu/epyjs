@@ -2,8 +2,8 @@
 
 + focused on blogging
 + simple framework, html, css, and markdown is all that's required
-+ markdown files are stored to some service like github, s3, etc
-+ download an index file with a list of markdown or other pages
++ markdown files are stored in some service like github, s3, etc
++ download an index file with a list of markdown or other pages or get a directory of files
 + download each markdown page
 + render based on local env layout
 + adapters to work with different services, github, s3, etc
@@ -17,4 +17,5 @@
 
 + since things are not cached, the performance will be bad, it will be a new page load everytime.  cdn's basically will be bypassed, though i guess the contents will be stored to cdn, so it may not be that bad, the page rendering should be quick.
 + ~~call it nonjs~~
-+ exclude certain markdown files like README.md, customizable, user can pass, or should it be fixed?
++ ~~exclude certain markdown files like README.md, customizable, user can pass, or should it be fixed?~~
++ observability, bytes downloaded, 

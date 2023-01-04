@@ -27,8 +27,6 @@ module.exports = {
         ]
     },
 
-    target: "web",
-
     devServer: {
         static: path.join(__dirname, "."),
         compress: true,

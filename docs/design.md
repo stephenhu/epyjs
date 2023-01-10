@@ -12,3 +12,13 @@
 
 + github repo, gets all markdown files, stores contents to an array.
 +  
+
+
+## flow
+
++ user adds or updates markdown files and commits into repo
++ repo has a github action upon commit to create index file (meta.json)
++ this repo must have github pages enabled
++ mkdown will download meta index file which contains names of files and meta information like creation date
++ mkdown should download all articles and store in memory
++ mkdown has a callback to update page view with articles

@@ -19,16 +19,30 @@
 + ~~call it nonjs~~
 + ~~exclude certain markdown files like README.md, customizable, user can pass, or should it be fixed?~~
 + observability, bytes downloaded, progress bar
++ bitbucket support
++ creation date
++ article ordered by date
 
+
+### workflow
+
+* store articles in markdown to some source repository like github, this provides versioning, revision control, pages can also be served i.e. github pages.
+* this automatically updates the production env
 
 ## github api
 
-github api has a couple of issues, first it's rate limited so if you're creating a popular site then this could cause some issues, second github api makes it difficult to collect information about creation dates for git objects, this is needed when you are trying to get a the date of an article.
+github api has a couple of issues, first it's rate limited so if you're creating a popular site then this could cause some issues, second github api makes it difficult to collect information about creation dates for git objects, this is needed when you are trying to get the date of an article.
 
 a workaround for this is to keep an index of all the articles, meta information about the articles, and this needs to be kept in a public place
-like github.  access to this file can be accessed through raw.githubusercontent.com service, but this is blocked in china since it's s3 on the backend.  it seems that there's another link that allows access in china at the moment which is through https://github.com/user/repo/raw/main/filename, but this essentially redirects to raw.githubusecontent.com
+like github.  access to this file can be accessed through raw.githubusercontent.com service, but this is blocked in china since it's s3 on the backend.  it seems that there's another link that allows access in china at the moment which is through https://github.com/user/repo/raw/main/filename, but this essentially redirects to raw.githubusecontent.com, ok, this does not work in china.
 
 in order for this to scale, there needs to be a solution that does not require usage of the github api.
+
+### github pages
+
+it appears that enabling github pages on a repository gives you the raw .md files by using url.  e.g. stephenhu.github.io/blog-www/nadal.md
+
+there still needs to be a means of getting an index of the files in the repository, since github pages turns off the directory output of files, this is maybe where a github action can help to create a meta.json file that contains all the meta information.
 
 ### option 1
 

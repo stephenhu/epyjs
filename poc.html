@@ -3,6 +3,7 @@
   <head>
     <title>poc</title>
     <script src="./dist/bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   </head>
   <body>
     <div id="main">
@@ -10,25 +11,50 @@
     <script>
 
       const Github = window.default;
-      const gh = new Github("stephenhu", "blog-www", ["README.md"]);
+      const gh = new Github(
+        "https://stephenhu.github.io/blog-www", "meta.json");
 
-      function f(k) {
+      function updateArticle(k) {
 
-        let m = gh.articles;
-
-        var main = document.getElementById("main");
+        var id = document.getElementById(k);
 
         var div = document.createElement("div");
 
-        let d = m.get(k);
+        let d = gh.articles.get(k);
 
-        div.innerText = d.content;
+        div.innerHTML = marked.parse(d.content);
 
-        main.appendChild(div);
+        id.appendChild(div);
 
-      } // f
+      } // updateArticle
 
-      gh.getArticles(f);
+
+      function addArticles() {
+
+        let meta = gh.meta;
+
+        const main = document.getElementById("main");
+
+        for(a of meta.content) {
+
+          const div = document.createElement("div");
+
+          console.log(a.id);
+
+          div.setAttribute("id", a.id);
+
+          main.appendChild(div);
+
+          gh.getContent(a.id, updateArticle);
+
+        }
+
+      } // addArticles
+
+
+      //gh.getArticles(f);
+
+      gh.getIndex(addArticles);
 
       
       /*

@@ -23,7 +23,7 @@ export class Article {
     this._title    = title;
     this._content  = content;
     this._synopsis = "";
-    this._creation = Date.now(); // TODO: placeholder
+    this._creation = Date.now();
 
   } // constructor
 
@@ -106,6 +106,11 @@ export default class Github {
     .catch((err) => console.log(err));
 
   } // getIndex
+
+
+  get page(): string {
+    return this._page;
+  } // page
 
 
   get articles(): Map<string, Article> {

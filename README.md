@@ -1,6 +1,6 @@
 # mkdown
  
-library provides the ability to download markdown files from different sources like github or s3, these markdown files can then be used in client side rendering libraries which can then be used to change the layout or look and feel.
+mkdown is part of a fundamentally new static site architecture that focuses more directly on content creation and less on technical work surrounding the generation of static sites.  Typical static site architectures require some amount of coding, use of a command line tool, or learning about some obscure template language, with mkdown, users can just write content in markdown, save this to a github repository or s3 bucket, and focus on css/html to modify the look and feel.  This provides true separation of content and layout.
 
 ## usage
 

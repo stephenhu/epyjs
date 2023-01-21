@@ -23,7 +23,7 @@ export class Article {
     this._title    = title;
     this._content  = content;
     this._synopsis = "";
-    this._creation = Date.now();
+    this._creation = 0;
 
   } // constructor
 

@@ -3,20 +3,19 @@ const path = require("path");
 module.exports = {
 
     mode: "production",
-
     entry: "./src/index.ts",
-
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "bundle.js",
-        libraryTarget: "umd",
-        globalObject: "this",
+        library: {
+            name: "Github",
+            type: "var",
+            export: "default"
+        }
     },
-
     resolve: {
-        extensions: [".ts", ".js"],
+        extensions: [".tsx", ".ts", ".js"],
     },
-
     module: {
         rules: [
             {
@@ -26,7 +25,6 @@ module.exports = {
             }
         ]
     },
-
     devServer: {
         static: path.join(__dirname, "."),
         compress: true,

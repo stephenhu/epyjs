@@ -15,9 +15,7 @@ export const STR_SPACE               = " ";
 
 export const REGEX_MDMKD             = /\.md|\.mkd/;
 export const REGEX_TITLE             = /[-|_|.|+]+/g;
-export const REGEX_INVALID_TITLE     = /[$|%|$|#|*|&|^|!|@|(|)|<|>|?|=|~|\s]+/g;
 export const REGEX_VALID_TITLE       = /[^-+_.a-zA-Z0-9]+/g;
-// TODO: use a regex with the supported chars since this is a smaller list
 
 export class Article {
 

@@ -6,7 +6,8 @@ mkdown is part of a fundamentally new static site architecture that focuses more
 
 1. `npm install`
 1. `npm run build`
-1. `npm start` to test locally
+1. `npm run test`
+1. `npm start` # Serve locally
 
 _output files are stored to the `dist` directory._
 

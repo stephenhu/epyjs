@@ -10,6 +10,14 @@ export const EXT_MKD                 = ".mkd";
 
 export const SKIP_README             = "README.md";
 
+export const STR_EMPTY               = "";
+export const STR_SPACE               = " ";
+
+export const REGEX_MDMKD             = /\.md|\.mkd/;
+export const REGEX_TITLE             = /[-|_|.|+]+/g;
+export const REGEX_INVALID_TITLE     = /[$|%|$|#|*|&|^|!|@|(|)|<|>|?|=|~|\s]+/g;
+export const REGEX_VALID_TITLE       = /[^-+_.a-zA-Z0-9]+/g;
+// TODO: use a regex with the supported chars since this is a smaller list
 
 export class Article {
 
@@ -20,12 +28,42 @@ export class Article {
 
   constructor(title: string, content: string) {
 
-    this._title    = title;
+    this._title    = this.extractTitle(title);
     this._content  = content;
-    this._synopsis = "";
+    this._synopsis = STR_EMPTY;
     this._creation = 0;
 
   } // constructor
+
+
+  isValidTitle(n: string): boolean {
+
+    const re = new RegExp(REGEX_VALID_TITLE);
+    return !re.test(n);
+
+  } // isValidTitle
+
+
+  extractTitle(n: string): string {
+
+    if(n === undefined || n === null || n.length === 0) {
+      return STR_EMPTY;
+    } else {
+
+      if(this.isValidTitle(n)) {
+
+        const title = n.replace(REGEX_MDMKD, STR_EMPTY).replace(
+          REGEX_TITLE, STR_SPACE).trim();
+  
+        return title;
+  
+      } else {
+        return STR_EMPTY;
+      }
+
+    }
+
+  } // extractTitle
 
 
   get title(): string {

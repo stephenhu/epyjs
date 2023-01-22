@@ -22,12 +22,14 @@ export const REGEX_VALID_TITLE       = /[^-+_.a-zA-Z0-9]+/g;
 export class Article {
 
   private _title:        string;
+  private _file:         string;
   private _content:      string;
   private _synopsis:     string;
   private _creation:     number;
 
   constructor(title: string, content: string) {
 
+    this._file     = title;
     this._title    = this.extractTitle(title);
     this._content  = content;
     this._synopsis = STR_EMPTY;
@@ -64,6 +66,11 @@ export class Article {
     }
 
   } // extractTitle
+
+
+  get file(): string {
+    return this._file;
+  } // file
 
 
   get title(): string {

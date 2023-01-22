@@ -65,6 +65,35 @@ export class Article {
 
   } // extractTitle
 
+  // TODO: only read content/text, ignore images, links, etc
+  summarize(c: number): string {
+  
+    if(this._content === undefined || this._content === null ||
+      this._content.length === 0) {
+      
+      console.log("Unable to summarize string");
+      return this._content;
+  
+    }
+  
+    const words = this._content.trim().split(STR_SPACE);
+  
+    if(words.length >= c) {
+  
+      var ret: string = "";
+  
+      for(let i = 0; i < c; i++) {
+        ret += words[i] + STR_SPACE;
+      }
+  
+      return ret.trim();
+  
+    } else {
+      return this._content;
+    }
+  
+  } // summarize
+
 
   get file(): string {
     return this._file;

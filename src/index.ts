@@ -13,6 +13,9 @@ export const STR_EMPTY                = "";
 export const STR_SPACE                = " ";
 export const STR_NL                   = "\n";
 
+export const STR_CLOSE_PAREN          = ")";
+export const STR_OPEN_PAREN           = "(";
+
 export const MD_HEADER                = '#';
 export const MD_IMG                   = '!';
 
@@ -20,6 +23,7 @@ export const MD_IMG                   = '!';
 export const REGEX_MDMKD              = /\.md|\.mkd/;
 export const REGEX_TITLE              = /[-|_|.|+]+/g;
 export const REGEX_VALID_TITLE        = /[^-+_.a-zA-Z0-9]+/g;
+export const REGEX_LINK               = /[(][a-zA-Z0-9+:=?&\/#._\-]+[)]$/;
 
 
 export class Article {
@@ -71,18 +75,17 @@ export class Article {
   } // extractTitle
 
 
-  // TODO: only read content/text, ignore images, links, etc
   summary(c: number): string {
   
     if(this._content === undefined || this._content === null ||
       this._content.length === 0) {
       
-      console.log("Error: Unable to summarize string");
+      console.log("Error: Unable to summarize article");
       return this._content;
   
     } else {
 
-      const text = this.extractText();
+      const text = this.text();
 
       const words = text.trim().split(STR_SPACE);
   
@@ -106,7 +109,7 @@ export class Article {
   } // summary
 
 
-  extractText(): string {
+  text(): string {
 
     const lines = this._content.split(STR_NL);
 
@@ -123,7 +126,41 @@ export class Article {
 
     return STR_EMPTY;
 
-  } // extractText
+  } // text
+
+
+  images(): string[] {
+
+    var ret: string[] = [];
+
+    const lines = this._content.split(STR_NL);
+
+    var re = new RegExp(REGEX_LINK);
+
+    for(let i = 0; i < lines.length; i++) {
+
+      const m = lines[i][0];
+
+      if(m !== undefined && m != null && m === MD_IMG &&
+        lines[i] !== STR_EMPTY) {
+
+        let out = lines[i].match(re);
+
+        console.log(lines[i]);
+        if(out !== null && out.length > 0) {
+
+          ret.push(out[0].replace(STR_OPEN_PAREN,
+            STR_EMPTY).replace(STR_CLOSE_PAREN, STR_EMPTY));
+
+        }
+
+      }
+
+    }
+
+    return ret;
+
+  } // images
 
 
   get file(): string {

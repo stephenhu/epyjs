@@ -139,7 +139,7 @@ export class Article {
 
     for(let i = 0; i < lines.length; i++) {
 
-      const m = lines[i][0];
+      const m = lines[i].trim()[0];
 
       if(m !== undefined && m != null && m === MD_IMG &&
         lines[i] !== STR_EMPTY) {

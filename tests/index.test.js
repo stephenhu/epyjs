@@ -112,19 +112,31 @@ describe("article class summary tests", () => {
 
 describe("article class image tests", () => {
   
-  test("single image", () => {
+  test("single link", () => {
     
-    const a = new Article("name.md", "# matsuda\n ![test](https://www.google.com)");
+    const a = new Article("name.md",
+    "# matsuda\n ![test](https://www.google.com)\n");
+
     expect(a.images()).toEqual(expect.arrayContaining([
       "https://www.google.com"
     ]));
   
   });
 
-  test("no image", () => {
+  test("no link", () => {
     
     const a = new Article("name.md", "# matsuda\n");
     expect(a.images()).toEqual(expect.arrayContaining([
+    ]));
+  
+  });
+
+  test("link uncommon chars", () => {
+    
+    const a = new Article("name.md",
+    "# matsuda\n ![](https://www.a.com/page-two_at?det=ok&token=2#west+x)");
+    expect(a.images()).toEqual(expect.arrayContaining([
+      "https://www.a.com/page-two_at?det=ok&token=2#west+x"
     ]));
   
   });

@@ -1,21 +1,26 @@
 /* mkdown */
 
+export const GITHUB_API               = "https://api.github.com";
+export const GITHUB_API_REPOS         = "/repos";
+export const GITHUB_API_CONTENTS      = "/contents";
 
-export const GITHUB_API              = "https://api.github.com";
-export const GITHUB_API_REPOS        = "/repos";
-export const GITHUB_API_CONTENTS     = "/contents";
+export const EXT_MD                   = ".md";
+export const EXT_MKD                  = ".mkd";
 
-export const EXT_MD                  = ".md";
-export const EXT_MKD                 = ".mkd";
+export const SKIP_README              = "README.md";
 
-export const SKIP_README             = "README.md";
+export const STR_EMPTY                = "";
+export const STR_SPACE                = " ";
+export const STR_NL                   = "\n";
 
-export const STR_EMPTY               = "";
-export const STR_SPACE               = " ";
+export const MD_HEADER                = '#';
+export const MD_IMG                   = '!';
 
-export const REGEX_MDMKD             = /\.md|\.mkd/;
-export const REGEX_TITLE             = /[-|_|.|+]+/g;
-export const REGEX_VALID_TITLE       = /[^-+_.a-zA-Z0-9]+/g;
+
+export const REGEX_MDMKD              = /\.md|\.mkd/;
+export const REGEX_TITLE              = /[-|_|.|+]+/g;
+export const REGEX_VALID_TITLE        = /[^-+_.a-zA-Z0-9]+/g;
+
 
 export class Article {
 
@@ -65,34 +70,60 @@ export class Article {
 
   } // extractTitle
 
+
   // TODO: only read content/text, ignore images, links, etc
-  summarize(c: number): string {
+  summary(c: number): string {
   
     if(this._content === undefined || this._content === null ||
       this._content.length === 0) {
       
-      console.log("Unable to summarize string");
+      console.log("Error: Unable to summarize string");
       return this._content;
-  
-    }
-  
-    const words = this._content.trim().split(STR_SPACE);
-  
-    if(words.length >= c) {
-  
-      var ret: string = "";
-  
-      for(let i = 0; i < c; i++) {
-        ret += words[i] + STR_SPACE;
-      }
-  
-      return ret.trim();
   
     } else {
-      return this._content;
+
+      const text = this.extractText();
+
+      const words = text.trim().split(STR_SPACE);
+  
+      if(words.length >= c) {
+    
+        var ret: string = "";
+    
+        for(let i = 0; i < c; i++) {
+          ret += words[i] + STR_SPACE;
+        }
+    
+        return ret.trim();
+    
+      } else {
+        return this._content;
+      }
+  
     }
   
-  } // summarize
+  
+  } // summary
+
+
+  extractText(): string {
+
+    const lines = this._content.split(STR_NL);
+
+    for(let i = 0; i < lines.length; i++) {
+
+      const m = lines[i][0];
+
+      if(m !== undefined && m != null && m !== MD_HEADER &&
+        m !== MD_IMG && lines[i] !== STR_EMPTY) {
+        return lines[i];
+      }
+
+    }
+
+    return STR_EMPTY;
+
+  } // extractText
 
 
   get file(): string {

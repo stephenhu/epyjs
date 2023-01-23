@@ -18,7 +18,9 @@
 
         let d = gh.articles.get(k);
 
-        div.innerHTML = marked.parse(d.content);
+        //console.log("Summary " + );
+        //div.innerHTML = marked.parse(d.content);
+        div.innerHTML = marked.parse(d.summary(20));
 
         id.appendChild(div);
 
@@ -35,7 +37,7 @@
 
           const div = document.createElement("div");
 
-          console.log(a.id);
+          //console.log(a.id);
 
           div.setAttribute("id", a.id);
 

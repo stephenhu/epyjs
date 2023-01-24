@@ -23,7 +23,7 @@ export const MD_IMG                   = '!';
 export const REGEX_MDMKD              = /\.md|\.mkd/;
 export const REGEX_TITLE              = /[-|_|.|+]+/g;
 export const REGEX_VALID_TITLE        = /[^-+_.a-zA-Z0-9]+/g;
-export const REGEX_LINK               = /[(][a-zA-Z0-9+:=@?&\/#._\-]+[)]$/;
+export const REGEX_LINK               = /[(][a-zA-Z0-9+:=?&@\/#._\-]+[)]$/;
 
 
 export class Article {
@@ -37,7 +37,7 @@ export class Article {
   constructor(title: string, content: string) {
 
     this._file     = title;
-    this._title    = this.extractTitle(title);
+    this._title    = this.extractTitle();
     this._content  = content;
     this._synopsis = STR_EMPTY;
     this._creation = 0;
@@ -53,7 +53,9 @@ export class Article {
   } // isValidTitle
 
 
-  extractTitle(n: string): string {
+  extractTitle(): string {
+
+    const n: string = this._file;
 
     if(n === undefined || n === null || n.length === 0) {
       return STR_EMPTY;

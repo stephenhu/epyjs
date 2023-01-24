@@ -131,12 +131,30 @@ describe("article class image tests", () => {
   
   });
 
-  test("link uncommon chars", () => {
+  test("link valid chars", () => {
     
     const a = new Article("name.md",
-    "# matsuda\n ![](https://www.a.com/page-two_at?det=ok&token=2#west+x)");
+    "# matsuda\n ![](https://www.a.com/page-two_at?det=ok@&token=2#west+x)");
     expect(a.images()).toEqual(expect.arrayContaining([
-      "https://www.a.com/page-two_at?det=ok&token=2#west+x"
+      "https://www.a.com/page-two_at?det=ok@&token=2#west+x"
+    ]));
+  
+  });
+
+  test("link invalid char caret", () => {
+    
+    const a = new Article("name.md",
+    "# matsuda\n ![](https://www.a.com/page-two_at?det=\^ok&token=2#west+x)");
+    expect(a.images()).toEqual(expect.arrayContaining([
+    ]));
+  
+  });
+
+  test("link invalid char exclamation", () => {
+    
+    const a = new Article("name.md",
+    "# matsuda\n ![](https://www.a.com/page-two_at?det=!ok&token=2#west+x)");
+    expect(a.images()).toEqual(expect.arrayContaining([
     ]));
   
   });

@@ -23,7 +23,7 @@ export const MD_IMG                   = '!';
 export const REGEX_MDMKD              = /\.md|\.mkd/;
 export const REGEX_TITLE              = /[-|_|.|+]+/g;
 export const REGEX_VALID_TITLE        = /[^-+_.a-zA-Z0-9]+/g;
-export const REGEX_LINK               = /[(][a-zA-Z0-9+:=?&\/#._\-]+[)]$/;
+export const REGEX_LINK               = /[(][a-zA-Z0-9+:=@?&\/#._\-]+[)]$/;
 
 
 export class Article {

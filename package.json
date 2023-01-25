@@ -1,6 +1,6 @@
 {
   "name": "mkdown",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "markdown download library",
   "directories": {
     "doc": "docs"
@@ -35,5 +35,9 @@
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.11.1"
+  },
+  "dependencies": {
+    "lunr": "^2.3.9",
+    "marked": "^4.2.12"
   }
 }

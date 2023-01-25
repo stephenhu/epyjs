@@ -159,4 +159,14 @@ describe("article class image tests", () => {
   
   });
 
+  test("valid link, but starts with spaces", () => {
+    
+    const a = new Article("name.md",
+    "# matsuda\n    ![](https://www.a.com/page-two_at?det=ok&token=2#west+x)");
+    expect(a.images()).toEqual(expect.arrayContaining([
+      "https://www.a.com/page-two_at?det=ok&token=2#west+x"
+    ]));
+  
+  });
+
 });

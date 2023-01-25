@@ -19,6 +19,7 @@ export const STR_OPEN_PAREN           = "(";
 export const MD_HEADER                = '#';
 export const MD_IMG                   = '!';
 
+export const DEFAULT_SUMMARY_WORDS    = 20;
 
 export const REGEX_MDMKD              = /\.md|\.mkd/;
 export const REGEX_TITLE              = /[-|_|.|+]+/g;
@@ -79,6 +80,10 @@ export class Article {
 
   summary(c: number): string {
   
+    if(c === undefined || c < 1) {
+      c = DEFAULT_SUMMARY_WORDS;
+    }
+
     if(this._content === undefined || this._content === null ||
       this._content.length === 0) {
       
@@ -89,24 +94,31 @@ export class Article {
 
       const text = this.text();
 
+      console.log("TEXT: " + text);
+
       const words = text.trim().split(STR_SPACE);
   
-      if(words.length >= c) {
+      var ret: string = "";
     
-        var ret: string = "";
-    
-        for(let i = 0; i < c; i++) {
+      for(let i = 0; i < words.length; i++) {
+
+        if(i < c) {
           ret += words[i] + STR_SPACE;
         }
+
+      }
+  
+      return ret.trim();
+      
+      /*if(words.length >= c) {
     
-        return ret.trim();
+        
     
       } else {
         return this._content;
-      }
+      }*/
   
     }
-  
   
   } // summary
 
@@ -117,7 +129,7 @@ export class Article {
 
     for(let i = 0; i < lines.length; i++) {
 
-      const m = lines[i][0];
+      const m = lines[i].trim()[0];
 
       if(m !== undefined && m != null && m !== MD_HEADER &&
         m !== MD_IMG && lines[i] !== STR_EMPTY) {

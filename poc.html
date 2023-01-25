@@ -20,7 +20,14 @@
 
         //console.log("Summary " + );
         //div.innerHTML = marked.parse(d.content);
-        div.innerHTML = marked.parse(d.summary(20));
+
+        const sum = d.summary(50);
+
+        console.log("SUM: " + sum);
+
+        div.innerHTML = marked.parse(sum);
+
+        console.log(d._title);
 
         id.appendChild(div);
 

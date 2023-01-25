@@ -96,7 +96,7 @@ describe("article class summary tests", () => {
   test("summary without limit", () => {
     
     const a = new Article("a-namewithhyphens.md", "this is a long article with more than 20 words from the long lost valley of the sun in new york city");
-    expect(a.summary()).toBe("this is a long article with more than 20 words from the long lost valley of the sun in new york city");
+    expect(a.summary()).toBe("this is a long article with more than 20 words from the long lost valley of the sun in new");
   
   });
 
@@ -104,6 +104,13 @@ describe("article class summary tests", () => {
     
     const a = new Article("a-namewithhyphens.md", "# what is this? \nthis is a long article with more than 20 words from the long lost valley of the sun in new york city");
     expect(a.summary(5)).toBe("this is a long article");
+  
+  });
+
+  test("summary less than length for first paragraph", () => {
+    
+    const a = new Article("a-namewithhyphens.md", "two words\nthis is much longer with multiple words");
+    expect(a.summary(5)).toBe("two words");
   
   });
 
